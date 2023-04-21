@@ -17,38 +17,37 @@ export class AppComponent implements OnInit{
 
 ngOnInit(){
     this.srv.listen('dataUpdate').subscribe((res:any)=>{
-        console.log(res);
-       
         
-        this.chart= res[0];
-        console.log(this.chart);    
-        // this.chart.update();
-        // console.log(this.chart);
-        
+       let data = res[0];
+       console.log(data[0]);
+       let finalData = [
+                            data[0].january,
+                            data[0].february,
+                            data[0].march,
+                            data[0].april,
+                            data[0].may,
+                            data[0].june,
+                            data[0].july,
+                            data[0].august
+                       ]
+        this.chart.data.datasets[0].data = finalData
+        this.chart.update();
     })
 
-    // this.chart=new Chart('canvas', {
-    //     type :"bar",
-    //     options:{
-    //         responsive :true,
-    //         title:{
-    //             display:true,
-    //             text :'Real Time Chart'
-    //         }
-    //     },
-    //     data: {
-    //         labels: ["January", "February", "March", "April", "May","June","July","August"],
-    //         datasets: [
-    //             {
-    //                 type:"bar",
-    //                 label: "Sales Performed",
-    //                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#e8c3b9","#8e5ea2","#3e95cd"],
-    //                 fill:false
-    //             }
-    //         ]
-    //     }
+    this.chart=new Chart('canvas', {
+        type :"bar",
+        data: {
+            labels: ["January", "February", "March", "April", "May","June","July","August"],
+            datasets: [
+                {
+                    label: "Sales",
+                    data: [],
+                    backgroundColor: 'blue'
+                }
+            ]
+        }
 
-    // });
+    });
 
 }
 
